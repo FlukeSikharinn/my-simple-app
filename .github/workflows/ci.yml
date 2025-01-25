@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # ทำงานเมื่อมีการ push ไปที่ master
+      - main  # ทำงานเมื่อมีการ push ไปที่ master
 
 jobs:
   build:
