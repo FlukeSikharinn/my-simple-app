@@ -20,9 +20,3 @@ jobs:
 
     - name: Install dependencies
       run: npm install  # ติดตั้ง dependencies
-
-    - name: Run tests (ถ้ามี)
-      run: npm test  # หากคุณมี unit tests, สามารถรันได้ที่นี่
-
-    - name: Build Docker image (ถ้าต้องการ)
-      run: docker build -t my-app .  # สร้าง Docker image ถ้าต้องการ
