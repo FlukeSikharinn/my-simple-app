@@ -1,0 +1,28 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master  # ทำงานเมื่อมีการ push ไปที่ master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # ใช้เครื่อง Ubuntu ในการ build
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # ใช้ Node.js เวอร์ชัน 14
+
+    - name: Install dependencies
+      run: npm install  # ติดตั้ง dependencies
+
+    - name: Run tests (ถ้ามี)
+      run: npm test  # หากคุณมี unit tests, สามารถรันได้ที่นี่
+
+    - name: Build Docker image (ถ้าต้องการ)
+      run: docker build -t my-app .  # สร้าง Docker image ถ้าต้องการ
