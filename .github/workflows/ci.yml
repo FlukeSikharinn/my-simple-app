@@ -26,6 +26,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
+        file: ./Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
 
@@ -37,6 +38,5 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
-          docker stop my-simple-app || true
-          docker rm my-simple-app || true
-          docker run -d --name my-simple-app -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
+          docker-compose down
+          docker-compose up -d
