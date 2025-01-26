@@ -15,6 +15,15 @@ app.get('/product', (req, res) => {
     res.json(product);
 });
 
+app.get('/user', (req, res) => {
+    const product = {
+        id: 1,
+        name: 'Fluke',
+        email: 'FlukSikharin@mail.com.',
+    };
+    res.json(product);
+});
+
 const PORT = 3000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
