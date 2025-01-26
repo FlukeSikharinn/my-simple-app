@@ -51,6 +51,15 @@ app.get('/last-test', (req, res) => {
     res.json(car);
 });
 
+app.get('/fork', (req, res) => { 
+    const car = {
+        id: 1,
+        name: 'fork', 
+        email: 'fork@mail.com',
+    };
+    res.json(car);
+});
+
 
 const PORT = 3000;
 app.listen(PORT, '0.0.0.0', () => {
