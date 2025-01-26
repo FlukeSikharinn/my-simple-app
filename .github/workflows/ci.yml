@@ -42,11 +42,13 @@ jobs:
           ls -al
 
           git fetch origin main
-          
+
           git reset --hard origin/main
 
           docker pull ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
 
           docker-compose down
 
+          docker-compose build
+          
           docker-compose up -d
