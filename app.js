@@ -33,6 +33,15 @@ app.get('/car', (req, res) => {
     res.json(car);
 });
 
+app.get('/test2', (req, res) => { 
+    const car = {
+        id: 1,
+        name: 'test2', 
+        email: 'test2@mail.com',
+    };
+    res.json(car);
+});
+
 const PORT = 3000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
