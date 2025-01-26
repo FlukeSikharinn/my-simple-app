@@ -1,27 +1,47 @@
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+version: '3'
+services:
+  app:
+    image: flukesikharin/my-simple-app:latest
+    container_name: my-simple-app
+    ports:
+      - "80:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 80
+    volumes:
+      - .:/app
+    networks:
+      - app-network
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+    networks:
+      - app-network
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
 
-      - name: Build Docker image
-        run: |
-          docker build -t <docker-hub-username>/my-simple-app .
+networks:
+  app-network:
+    driver: bridge
 
-      - name: Pull Docker image and bring up containers
-        run: |
-          docker pull <docker-hub-username>/my-simple-app:latest
-          docker-compose down
-          docker-compose up -d
+volumes:
+  mongo-data:
+    driver: local
