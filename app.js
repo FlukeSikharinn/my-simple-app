@@ -42,6 +42,16 @@ app.get('/test2', (req, res) => {
     res.json(car);
 });
 
+app.get('/last-test', (req, res) => { 
+    const car = {
+        id: 1,
+        name: 'LastTest', 
+        email: 'LastTest@mail.com',
+    };
+    res.json(car);
+});
+
+
 const PORT = 3000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
