@@ -37,6 +37,12 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
+          cd /path/to/your/project
+
+          ls -al
+
           docker pull ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
+
           docker-compose down
+
           docker-compose up -d
