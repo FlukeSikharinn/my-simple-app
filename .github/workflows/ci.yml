@@ -19,7 +19,7 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: flukesikharin
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push Docker image
@@ -28,7 +28,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
+        tags: flukesikharin/my-simple-app:latest
 
     - name: SSH to EC2 and pull new Docker image
       uses: appleboy/ssh-action@v0.1.7
@@ -41,7 +41,7 @@ jobs:
 
           ls -al
 
-          docker pull ${{ secrets.DOCKER_USERNAME }}/my-simple-app:latest
+          docker pull flukesikharin/my-simple-app:latest
 
           docker-compose down
 
